@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Happy Mensive 3D</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      perspective: 1000px;
+      font-family: Arial, sans-serif;
+    }
+    .scene { position:fixed; inset:0; transform-style:preserve-3d; }
+    .txt {
+      position:absolute; white-space:nowrap; color:#fff;
+      text-shadow:0 0 2px #a7c7ff,0 0 12px #a7c7ff,0 0 22px rgba(255,255,255,.3);
+      mix-blend-mode:screen; opacity:.95; font-weight:bold;
+    }
+    .txt.s{font-size:12px;opacity:.7}
+    .txt.m{font-size:18px;opacity:.85}
+    .txt.l{font-size:28px}
+    .heart{
+      position:absolute; width:16px; height:16px; transform:rotate(45deg);
+      background:#ff3b3b; box-shadow:0 0 12px rgba(255,59,59,.8); opacity:.9;
+    }
+    .heart:before,.heart:after{
+      content:""; position:absolute; width:16px; height:16px;
+      background:#ff3b3b; border-radius:50%;
+    }
+    .heart:before{ left:-8px } .heart:after{ top:-8px }
+    .player{ position:fixed; left:12px; right:12px; bottom:12px; display:flex; justify-content:center; z-index:99 }
+    iframe{ border-radius:12px }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene"></div>
+  <div class="player">
+    <iframe src="https://open.spotify.com/embed/track/07koEqsKHZTlGVMC9eoEjO?utm_source=generator&theme=0"
+      width="320" height="80" frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </div>
+  <script>
+    const scene=document.getElementById('scene');
+    const TEXT="HAPPY MENSIVE SABIRU SEITH❤️";
+    const texts=[], hearts=[];
+    const N_TEXT=80, N_HEART=40;
+    function rand(a,b){return a+Math.random()*(b-a);}
+    for(let i=0;i<N_TEXT;i++){
+      const el=document.createElement('div');
+      el.className='txt '+(i%7<2?'l':i%7<5?'m':'s');
+      el.textContent=TEXT;
+      scene.appendChild(el);
+      texts.push({el,x:rand(-1000,1000),y:rand(-900,900),z:rand(-2200,-200),r:rand(-20,20)});
+    }
+    for(let i=0;i<N_HEART;i++){
+      const h=document.createElement('div'); h.className='heart'; scene.appendChild(h);
+      hearts.push({el:h,x:rand(-1000,1000),y:rand(-900,900),z:rand(-2200,-200),spin:rand(0,360)});
+    }
+    function tick(){
+      texts.forEach(t=>{
+        t.z+=5; t.r+=0.03;
+        if(t.z>250){t.z=-2200; t.x=rand(-1000,1000); t.y=rand(-900,900);}
+        t.el.style.transform=`translate3d(${t.x}px,${t.y}px,${t.z}px) rotate(${t.r}deg)`;
+      });
+      hearts.forEach(h=>{
+        h.z+=6; h.spin+=1.2;
+        if(h.z>250){h.z=-2200; h.x=rand(-1000,1000); h.y=rand(-900,900);}
+        h.el.style.transform=`translate3d(${h.x}px,${h.y}px,${h.z}px) rotate(${45+h.spin}deg)`;
+      });
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>
