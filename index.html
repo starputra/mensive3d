@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Mensive 3D</title>
+  <title>life is so private no one knows today is my birthday</title>
   <style>
     body {
       margin: 0;
@@ -40,37 +40,4 @@
 <body>
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    function createFallingText() {
-      const text = document.createElement("div");
-      text.className = "falling";
-      text.innerText = "Happy Mensive Sabiru Seith ❤️";
-      text.style.left = Math.random() * 100 + "vw";
-      text.style.animationDuration = (3 + Math.random() * 5) + "s";
-      document.body.appendChild(text);
-
-      setTimeout(() => {
-        text.remove();
-      }, 8000);
-    }
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "❤";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 5) + "s";
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 8000);
-    }
-
-    setInterval(createFallingText, 500);
-    setInterval(createHeart, 800);
-  </script>
-</body>
-</html>
+  
